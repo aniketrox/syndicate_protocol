@@ -113,7 +113,7 @@ const Index = () => {
           <div className="max-w-4xl mx-auto">
             <div className="flex items-center gap-4 mb-12 md:mb-16">
               <div className="h-px flex-1 bg-zinc-900" />
-              <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tighter text-center">Upcoming Battles</h2>
+              <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tighter text-center">Upcoming Premiers</h2>
               <div className="h-px flex-1 bg-zinc-900" />
             </div>
 
