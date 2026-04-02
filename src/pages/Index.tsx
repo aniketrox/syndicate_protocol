@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import MatchCard from '@/components/MatchCard';
 import SyndicateLogo from '@/components/SyndicateLogo';
-import { MadeWithDyad } from "@/components/made-with-dyad";
+import FooterCredit from "@/components/FooterCredit";
 
 const Index = () => {
   const matches = [
@@ -146,7 +146,7 @@ const Index = () => {
             </div>
           </div>
         </div>
-        <MadeWithDyad />
+        <FooterCredit />
       </footer>
     </div>
   );

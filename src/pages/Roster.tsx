@@ -4,7 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import TeamCard from '@/components/TeamCard';
-import { MadeWithDyad } from "@/components/made-with-dyad";
+import FooterCredit from "@/components/FooterCredit";
 
 const Roster = () => {
   const team = [
@@ -54,7 +54,7 @@ const Roster = () => {
           </div>
         </div>
       </main>
-      <MadeWithDyad />
+      <FooterCredit />
     </div>
   );
 };

@@ -4,7 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import { Shield, Trophy, Target } from 'lucide-react';
-import { MadeWithDyad } from "@/components/made-with-dyad";
+import FooterCredit from "@/components/FooterCredit";
 
 const Coach = () => {
   return (
@@ -97,7 +97,7 @@ const Coach = () => {
           </div>
         </div>
       </main>
-      <MadeWithDyad />
+      <FooterCredit />
     </div>
   );
 };
