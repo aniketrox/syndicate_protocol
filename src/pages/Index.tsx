@@ -6,6 +6,7 @@ import { ChevronRight, Swords, MousePointer2, Activity } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import MatchCard from '@/components/MatchCard';
+import SyndicateLogo from '@/components/SyndicateLogo';
 import { MadeWithDyad } from "@/components/made-with-dyad";
 
 const Index = () => {
@@ -53,7 +54,7 @@ const Index = () => {
                   <MousePointer2 className="text-red-500 rotate-45" size={48} />
                 </motion.div>
               </span>
-            </h1 >
+            </motion.h1>
 
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
