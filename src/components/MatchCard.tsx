@@ -10,9 +10,10 @@ interface MatchProps {
   date: string;
   time: string;
   logo: string;
+  streamUrl?: string;
 }
 
-const MatchCard = ({ opponent, tournament, date, time, logo }: MatchProps) => {
+const MatchCard = ({ opponent, tournament, date, time, logo, streamUrl = "https://youtube.com/@aksharog?si=0FLavZFpIqJrD_Yv" }: MatchProps) => {
   return (
     <motion.div 
       initial={{ opacity: 0, x: -20 }}
@@ -62,9 +63,14 @@ const MatchCard = ({ opponent, tournament, date, time, logo }: MatchProps) => {
         </div>
       </div>
 
-      <button className="w-full lg:w-auto px-6 py-3 bg-white text-black font-black uppercase text-[10px] sm:text-xs tracking-widest hover:bg-red-600 hover:text-white transition-colors rounded">
+      <a 
+        href={streamUrl} 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="w-full lg:w-auto px-6 py-3 bg-white text-black font-black uppercase text-[10px] sm:text-xs tracking-widest hover:bg-red-600 hover:text-white transition-colors rounded text-center"
+      >
         Watch Live
-      </button>
+      </a>
     </motion.div>
   );
 };
