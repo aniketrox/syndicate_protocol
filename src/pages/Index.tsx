@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ChevronRight, Swords, MousePointer2, Activity } from 'lucide-react';
+import { ChevronRight, MousePointer2, Activity } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import MatchCard from '@/components/MatchCard';
@@ -20,7 +20,21 @@ const Index = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-24 pb-12">
+      <section className="relative min-h-screen flex items-center pt-24 pb-12 overflow-hidden">
+        {/* Valorant-Themed Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070&auto=format&fit=crop" 
+            alt="Tactical Background" 
+            className="w-full h-full object-cover opacity-20 scale-110"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-zinc-950 via-zinc-950/80 to-zinc-950" />
+          <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-transparent to-zinc-950" />
+          
+          {/* Scanlines Overlay */}
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,255,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%] pointer-events-none opacity-20" />
+        </div>
+
         {/* Animated Background Grid */}
         <div className="absolute inset-0 z-0 opacity-10 md:opacity-20">
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:30px_30px] md:bg-[size:40px_40px]" />
