@@ -21,18 +21,20 @@ const Index = () => {
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center pt-24 pb-12 overflow-hidden">
-        {/* Valorant-Themed Background Image */}
+        {/* Valorant-Themed Background Image - Increased Visibility */}
         <div className="absolute inset-0 z-0">
           <img 
             src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070&auto=format&fit=crop" 
             alt="Tactical Background" 
-            className="w-full h-full object-cover opacity-20 scale-110"
+            className="w-full h-full object-cover opacity-40 scale-105 transition-transform duration-[20s] ease-linear"
+            style={{ filter: 'contrast(1.2) brightness(0.8)' }}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-zinc-950 via-zinc-950/80 to-zinc-950" />
-          <div className="absolute inset-0 bg-gradient-to-r from-zinc-950 via-transparent to-zinc-950" />
+          {/* Refined Gradients for better image visibility while keeping text readable */}
+          <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/90 via-zinc-950/40 to-zinc-950" />
+          <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/80 via-transparent to-zinc-950/80" />
           
-          {/* Scanlines Overlay */}
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,255,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%] pointer-events-none opacity-20" />
+          {/* Tactical Scanlines */}
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.04),rgba(0,255,255,0.02),rgba(0,0,255,0.04))] bg-[length:100%_2px,3px_100%] pointer-events-none opacity-30" />
         </div>
 
         {/* Animated Background Grid */}
@@ -45,7 +47,7 @@ const Index = () => {
             <motion.div 
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm bg-red-600/10 border border-red-600/20 text-red-500 text-[10px] md:text-xs font-black uppercase tracking-[0.2em] md:tracking-[0.3em] mb-6 md:mb-8"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm bg-red-600/20 border border-red-600/40 text-red-500 text-[10px] md:text-xs font-black uppercase tracking-[0.2em] md:tracking-[0.3em] mb-6 md:mb-8 backdrop-blur-sm"
             >
               <Activity size={14} className="animate-pulse" />
               Syndicate Protocol Active
@@ -55,7 +57,7 @@ const Index = () => {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter leading-[0.9] mb-8 md:mb-10"
+              className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter leading-[0.9] mb-8 md:mb-10 drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]"
             >
               JOIN THE <br />
               <span className="relative inline-block">
@@ -74,7 +76,7 @@ const Index = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8 }}
-              className="text-zinc-400 text-lg md:text-2xl max-w-2xl mb-10 md:mb-12 font-medium leading-relaxed border-l-2 border-red-600/30 pl-4 md:pl-8"
+              className="text-zinc-100 text-lg md:text-2xl max-w-2xl mb-10 md:mb-12 font-medium leading-relaxed border-l-4 border-red-600 pl-4 md:pl-8 drop-shadow-md"
             >
               We are not just a team. We are a tactical collective engineered for absolute dominance in the Valorant arena.
             </motion.p>
@@ -85,12 +87,12 @@ const Index = () => {
               transition={{ delay: 0.5 }}
               className="flex flex-col sm:flex-row gap-4 md:gap-6"
             >
-              <Link to="/roster" className="px-8 md:px-10 py-4 md:py-5 bg-red-600 text-white font-black uppercase text-xs md:text-sm tracking-widest hover:bg-red-700 transition-all rounded-sm flex items-center justify-center gap-3 group relative overflow-hidden">
+              <Link to="/roster" className="px-8 md:px-10 py-4 md:py-5 bg-red-600 text-white font-black uppercase text-xs md:text-sm tracking-widest hover:bg-red-700 transition-all rounded-sm flex items-center justify-center gap-3 group relative overflow-hidden shadow-lg shadow-red-600/20">
                 <span className="relative z-10">Enter Roster</span>
                 <ChevronRight size={20} className="relative z-10 group-hover:translate-x-1 transition-transform" />
                 <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
               </Link>
-              <Link to="/coach" className="px-8 md:px-10 py-4 md:py-5 bg-zinc-900 border border-zinc-800 text-white font-black uppercase text-xs md:text-sm tracking-widest hover:bg-zinc-800 transition-all rounded-sm text-center">
+              <Link to="/coach" className="px-8 md:px-10 py-4 md:py-5 bg-zinc-900/80 backdrop-blur-md border border-zinc-700 text-white font-black uppercase text-xs md:text-sm tracking-widest hover:bg-zinc-800 transition-all rounded-sm text-center">
                 Meet the Coach
               </Link>
             </motion.div>
@@ -99,7 +101,7 @@ const Index = () => {
 
         {/* Decorative Side Text */}
         <div className="absolute right-0 top-1/2 -translate-y-1/2 rotate-90 origin-right hidden 2xl:block">
-          <span className="text-[120px] font-black text-zinc-900/30 uppercase tracking-tighter select-none">
+          <span className="text-[120px] font-black text-zinc-900/40 uppercase tracking-tighter select-none">
             SYNDICATE
           </span>
         </div>
