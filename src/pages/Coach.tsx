@@ -22,7 +22,7 @@ const Coach = () => {
             >
               <div className="aspect-[4/5] rounded-2xl overflow-hidden border-2 border-red-600/20 relative group max-w-md mx-auto lg:max-w-none">
                 <img 
-                  src="/src/assets/team/allen.jpg" 
+                  src="/team/allen.jpg" 
                   alt="Coach Allen" 
                   className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                 />

@@ -8,12 +8,12 @@ import FooterCredit from "@/components/FooterCredit";
 
 const Roster = () => {
   const team = [
-    { name: "Akshar", role: "Manager", nickname: "The Funny Guy", agent: "Mics", image: "/src/assets/team/akshar.jpg" },
-    { name: "Aniket", role: "Tech Support", nickname: "Ego Player", agent: "Omen", image: "/src/assets/team/aniket.jpg" },
-    { name: "Dev", role: "Entry Fragger", nickname: "The Smurf", agent: "Iso", image: "/src/assets/team/dev.jpg" },
-    { name: "Prem", role: "Clutch King", nickname: "The Clutch Guy", agent: "Gekko", image: "/src/assets/team/prem.jpg" },
-    { name: "Shivam", role: "Duelist", nickname: "The Friendly Neighborhood", agent: "Neon", image: "/src/assets/team/shivam.jpg" },
-    { name: "Tamas", role: "Sentinel", nickname: "The Fear", agent: "Chamber", image: "/src/assets/team/tamas.jpg" },
+    { name: "Akshar", role: "Manager", nickname: "The Funny Guy", agent: "Mics", image: "/team/akshar.jpg" },
+    { name: "Aniket", role: "Tech Support", nickname: "Ego Player", agent: "Omen", image: "/team/aniket.jpg" },
+    { name: "Dev", role: "Entry Fragger", nickname: "The Smurf", agent: "Iso", image: "/team/dev.jpg" },
+    { name: "Prem", role: "Clutch King", nickname: "The Clutch Guy", agent: "Gekko", image: "/team/prem.jpg" },
+    { name: "Shivam", role: "Duelist", nickname: "The Friendly Neighborhood", agent: "Neon", image: "/team/shivam.jpg" },
+    { name: "Tamas", role: "Sentinel", nickname: "The Fear", agent: "Chamber", image: "/team/tamas.jpg" },
   ];
 
   return (
