@@ -1,8 +1,8 @@
 "use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ChevronRight, MousePointer2, Activity } from 'lucide-react';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { ChevronRight, Activity, Target, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import MatchCard from '@/components/MatchCard';
@@ -10,73 +10,175 @@ import SyndicateLogo from '@/components/SyndicateLogo';
 import FooterCredit from "@/components/FooterCredit";
 
 const Index = () => {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  });
+
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
   const matches = [
-    { opponent: "Team Liquid", tournament: "VCT Challengers", date: "Oct 24, 2023", time: "18:00 IST", logo: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=100&h=100&fit=crop" },
-    { opponent: "Sentinels", tournament: "Pro League S2", date: "Oct 28, 2023", time: "21:30 IST", logo: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=100&h=100&fit=crop" },
+    { 
+      opponent: "Unknown Team", 
+      tournament: "Syndicate Invitational", 
+      date: "TBD", 
+      time: "20:30 IST", 
+      logo: "" 
+    },
+    { 
+      opponent: "Unknown Team", 
+      tournament: "Challengers League", 
+      date: "TBD", 
+      time: "20:30 IST", 
+      logo: "" 
+    },
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20, skewX: -10 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      skewX: 0,
+      transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
+    },
+  };
+
   return (
-    <div className="min-h-screen bg-zinc-950 text-white selection:bg-red-600 selection:text-white overflow-x-hidden">
+    <div ref={containerRef} className="min-h-screen bg-zinc-950 text-white selection:bg-red-600 selection:text-white overflow-x-hidden">
       <Navbar />
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center pt-24 pb-12 overflow-hidden">
-        {/* Valorant-Themed Background Image - Increased Visibility */}
-        <div className="absolute inset-0 z-0">
+        {/* Parallax Background */}
+        <motion.div style={{ y: y1 }} className="absolute inset-0 z-0">
           <img 
             src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070&auto=format&fit=crop" 
             alt="Tactical Background" 
-            className="w-full h-full object-cover opacity-40 scale-105 transition-transform duration-[20s] ease-linear"
-            style={{ filter: 'contrast(1.2) brightness(0.8)' }}
+            className="w-full h-full object-cover opacity-40 scale-110"
+            style={{ filter: 'contrast(1.2) brightness(0.6)' }}
           />
-          {/* Refined Gradients for better image visibility while keeping text readable */}
-          <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/90 via-zinc-950/40 to-zinc-950" />
+          <div className="absolute inset-0 bg-gradient-to-b from-zinc-950/90 via-zinc-950/20 to-zinc-950" />
           <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/80 via-transparent to-zinc-950/80" />
-          
-          {/* Tactical Scanlines */}
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.04),rgba(0,255,255,0.02),rgba(0,0,255,0.04))] bg-[length:100%_2px,3px_100%] pointer-events-none opacity-30" />
-        </div>
+        </motion.div>
 
-        {/* Animated Background Grid */}
-        <div className="absolute inset-0 z-0 opacity-10 md:opacity-20">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:30px_30px] md:bg-[size:40px_40px]" />
+        {/* Floating Tactical Elements */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {[...Array(5)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0 }}
+              animate={{ 
+                opacity: [0.1, 0.3, 0.1],
+                y: [0, -20, 0],
+                x: [0, 10, 0]
+              }}
+              transition={{ 
+                duration: 5 + i, 
+                repeat: Infinity, 
+                delay: i * 2 
+              }}
+              className="absolute text-red-500/20"
+              style={{ 
+                top: `${20 + i * 15}%`, 
+                left: `${10 + i * 20}%` 
+              }}
+            >
+              {i % 2 === 0 ? <Target size={100 + i * 20} /> : <Zap size={80 + i * 20} />}
+            </motion.div>
+          ))}
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          <div className="max-w-5xl">
+          <motion.div style={{ opacity }} className="max-w-5xl">
             <motion.div 
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm bg-red-600/20 border border-red-600/40 text-red-500 text-[10px] md:text-xs font-black uppercase tracking-[0.2em] md:tracking-[0.3em] mb-6 md:mb-8 backdrop-blur-sm"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm bg-red-600/20 border border-red-600/40 text-red-500 text-[10px] md:text-xs font-black uppercase tracking-[0.3em] mb-8 backdrop-blur-sm"
             >
               <Activity size={14} className="animate-pulse" />
               Syndicate Protocol Active
             </motion.div>
 
-            <motion.h1 
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter leading-[0.9] mb-8 md:mb-10 drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]"
+            <motion.div 
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              className="relative mb-8 md:mb-10"
             >
-              JOIN THE <br />
-              <span className="relative inline-block">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-red-500 to-red-400">SYNDICATE.</span>
-                <motion.div 
-                  animate={{ x: [0, 10, 0], opacity: [0.5, 1, 0.5] }}
-                  transition={{ repeat: Infinity, duration: 3 }}
-                  className="absolute -right-12 top-1/2 -translate-y-1/2 hidden lg:block"
+              <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter leading-[0.9] relative z-10">
+                <motion.span variants={itemVariants} className="inline-block mr-4">JOIN</motion.span>
+                <motion.span variants={itemVariants} className="inline-block">THE</motion.span>
+                <br />
+                <motion.span 
+                  variants={itemVariants}
+                  className="relative inline-block"
                 >
-                  <MousePointer2 className="text-red-500 rotate-45" size={48} />
-                </motion.div>
-              </span>
-            </motion.h1>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-red-500 to-red-400">SYNDICATE.</span>
+                  
+                  {/* Enhanced Glitch Layers */}
+                  <motion.span 
+                    animate={{ 
+                      x: [-2, 2, -1, 3, -2], 
+                      y: [0, -1, 1, 0, -1],
+                      opacity: [0, 0.6, 0.2, 0.7, 0] 
+                    }}
+                    transition={{ 
+                      repeat: Infinity, 
+                      duration: 0.15, 
+                      repeatDelay: 2,
+                      times: [0, 0.2, 0.4, 0.6, 1]
+                    }}
+                    className="absolute inset-0 text-cyan-400 -z-10 translate-x-1 select-none"
+                  >
+                    SYNDICATE.
+                  </motion.span>
+                  <motion.span 
+                    animate={{ 
+                      x: [2, -2, 3, -1, 2], 
+                      y: [0, 1, -1, 0, 1],
+                      opacity: [0, 0.6, 0.2, 0.7, 0] 
+                    }}
+                    transition={{ 
+                      repeat: Infinity, 
+                      duration: 0.15, 
+                      repeatDelay: 2.1,
+                      times: [0, 0.2, 0.4, 0.6, 1]
+                    }}
+                    className="absolute inset-0 text-red-400 -z-10 -translate-x-1 select-none"
+                  >
+                    SYNDICATE.
+                  </motion.span>
+                  
+                  {/* Scanning Line Reveal */}
+                  <motion.div 
+                    initial={{ left: "-100%" }}
+                    animate={{ left: "100%" }}
+                    transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 3, ease: "easeInOut" }}
+                    className="absolute top-0 bottom-0 w-1 bg-white/30 blur-sm -z-10"
+                  />
+                </motion.span>
+              </h1>
+            </motion.div>
 
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.8 }}
-              className="text-zinc-100 text-lg md:text-2xl max-w-2xl mb-10 md:mb-12 font-medium leading-relaxed border-l-4 border-red-600 pl-4 md:pl-8 drop-shadow-md"
+              transition={{ delay: 0.8, duration: 0.8 }}
+              className="text-zinc-100 text-lg md:text-2xl max-w-2xl mb-10 md:mb-12 font-medium leading-relaxed border-l-4 border-red-600 pl-4 md:pl-8"
             >
               We are not just a team. We are a tactical collective engineered for absolute dominance in the Valorant arena.
             </motion.p>
@@ -84,38 +186,49 @@ const Index = () => {
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
+              transition={{ delay: 1 }}
               className="flex flex-col sm:flex-row gap-4 md:gap-6"
             >
               <Link to="/roster" className="px-8 md:px-10 py-4 md:py-5 bg-red-600 text-white font-black uppercase text-xs md:text-sm tracking-widest hover:bg-red-700 transition-all rounded-sm flex items-center justify-center gap-3 group relative overflow-hidden shadow-lg shadow-red-600/20">
                 <span className="relative z-10">Enter Roster</span>
                 <ChevronRight size={20} className="relative z-10 group-hover:translate-x-1 transition-transform" />
-                <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                <motion.div 
+                  className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-500 skew-x-12"
+                />
               </Link>
-              <Link to="/coach" className="px-8 md:px-10 py-4 md:py-5 bg-zinc-900/80 backdrop-blur-md border border-zinc-700 text-white font-black uppercase text-xs md:text-sm tracking-widest hover:bg-zinc-800 transition-all rounded-sm text-center">
-                Meet the Coach
+              <Link to="/coach" className="px-8 md:px-10 py-4 md:py-5 bg-zinc-900/80 backdrop-blur-md border border-zinc-700 text-white font-black uppercase text-xs md:text-sm tracking-widest hover:bg-zinc-800 transition-all rounded-sm text-center relative group overflow-hidden">
+                <span className="relative z-10">Meet the Coach</span>
+                <div className="absolute inset-0 bg-zinc-800 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
               </Link>
             </motion.div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Decorative Side Text */}
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 rotate-90 origin-right hidden 2xl:block">
+        <motion.div 
+          style={{ y: y1 }}
+          className="absolute right-0 top-1/2 -translate-y-1/2 rotate-90 origin-right hidden 2xl:block"
+        >
           <span className="text-[120px] font-black text-zinc-900/40 uppercase tracking-tighter select-none">
             SYNDICATE
           </span>
-        </div>
+        </motion.div>
       </section>
 
       {/* Matches Section */}
       <section id="matches" className="py-20 md:py-32 bg-zinc-950 relative">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
-            <div className="flex items-center gap-4 mb-12 md:mb-16">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="flex items-center gap-4 mb-12 md:mb-16"
+            >
               <div className="h-px flex-1 bg-zinc-900" />
-              <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tighter text-center">Upcoming Premiers</h2>
+              <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tighter text-center">Upcoming Battles</h2>
               <div className="h-px flex-1 bg-zinc-900" />
-            </div>
+            </motion.div>
 
             <div className="space-y-6">
               {matches.map((match, i) => (
@@ -141,7 +254,7 @@ const Index = () => {
               </p>
             </div>
 
-            <div className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.2em] md:tracking-[0.3em] text-center">
+            <div className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.3em] text-center">
               © 2023 SYNDICATE GAMING. ALL RIGHTS RESERVED.
             </div>
           </div>

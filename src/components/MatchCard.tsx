@@ -2,51 +2,76 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, Clock, Trophy } from 'lucide-react';
+import { Calendar, Clock, Trophy, HelpCircle } from 'lucide-react';
 
 interface MatchProps {
   opponent: string;
   tournament: string;
   date: string;
   time: string;
-  logo: string;
+  logo?: string;
   streamUrl?: string;
 }
 
-const MatchCard = ({ opponent, tournament, date, time, logo, streamUrl = "https://youtube.com/@aksharog?si=0FLavZFpIqJrD_Yv" }: MatchProps) => {
+const MatchCard = ({ 
+  opponent, 
+  tournament, 
+  date, 
+  time, 
+  logo, 
+  streamUrl = "https://www.youtube.com/@aksharog/live" 
+}: MatchProps) => {
   return (
     <motion.div 
       initial={{ opacity: 0, x: -20 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
-      className="flex flex-col lg:flex-row items-center gap-6 p-5 md:p-6 bg-zinc-900/50 border border-zinc-800 rounded-xl hover:bg-zinc-900 transition-colors"
+      whileHover={{ scale: 1.01 }}
+      className="group relative flex flex-col lg:flex-row items-center gap-6 p-5 md:p-6 bg-zinc-900/50 border border-zinc-800 rounded-xl hover:border-red-600/50 transition-all duration-300 overflow-hidden"
     >
-      <div className="flex items-center justify-between w-full lg:w-auto lg:justify-start gap-4 sm:gap-8 flex-1">
+      {/* Scanning Line Animation */}
+      <motion.div 
+        animate={{ y: ["-100%", "200%"] }}
+        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+        className="absolute inset-x-0 h-20 bg-gradient-to-b from-transparent via-red-600/5 to-transparent pointer-events-none z-0"
+      />
+
+      <div className="relative z-10 flex items-center justify-between w-full lg:w-auto lg:justify-start gap-4 sm:gap-8 flex-1">
         <div className="text-center min-w-[80px]">
-          <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-red-600 flex items-center justify-center text-xl sm:text-2xl font-black text-white mb-2 mx-auto">
+          <motion.div 
+            whileHover={{ scale: 1.1, rotate: -5 }}
+            className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-red-600 flex items-center justify-center text-xl sm:text-2xl font-black text-white mb-2 mx-auto shadow-[0_0_20px_rgba(220,38,38,0.3)]"
+          >
             OG
-          </div>
+          </motion.div>
           <span className="text-[10px] sm:text-xs font-bold text-zinc-500 uppercase">Our Team</span>
         </div>
 
         <div className="flex flex-col items-center gap-1 sm:gap-2">
-          <span className="text-xl sm:text-2xl font-black text-red-600 italic">VS</span>
+          <span className="text-xl sm:text-2xl font-black text-red-600 italic group-hover:scale-110 transition-transform">VS</span>
           <div className="px-2 py-0.5 bg-zinc-800 rounded text-[8px] sm:text-[10px] font-bold text-zinc-400 uppercase tracking-widest">
             BO3
           </div>
         </div>
 
         <div className="text-center min-w-[80px]">
-          <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-zinc-800 flex items-center justify-center text-xl sm:text-2xl font-black text-white mb-2 overflow-hidden mx-auto">
-            <img src={logo} alt={opponent} className="w-full h-full object-cover opacity-50" />
-          </div>
+          <motion.div 
+            whileHover={{ scale: 1.1, rotate: 5 }}
+            className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-zinc-800 flex items-center justify-center text-xl sm:text-2xl font-black text-white mb-2 overflow-hidden mx-auto border border-zinc-700"
+          >
+            {logo ? (
+              <img src={logo} alt={opponent} className="w-full h-full object-cover opacity-50" />
+            ) : (
+              <HelpCircle className="text-zinc-600 w-8 h-8" />
+            )}
+          </motion.div>
           <span className="text-[10px] sm:text-xs font-bold text-zinc-500 uppercase truncate max-w-[80px] block">{opponent}</span>
         </div>
       </div>
 
       <div className="w-full lg:w-px h-px lg:h-12 bg-zinc-800" />
 
-      <div className="flex flex-col sm:flex-row lg:flex-col gap-3 sm:gap-6 lg:gap-3 w-full lg:min-w-[200px] items-center lg:items-start">
+      <div className="relative z-10 flex flex-col sm:flex-row lg:flex-col gap-3 sm:gap-6 lg:gap-3 w-full lg:min-w-[200px] items-center lg:items-start">
         <div className="flex items-center gap-2 text-zinc-300">
           <Trophy size={16} className="text-red-500" />
           <span className="text-xs sm:text-sm font-bold uppercase tracking-tight">{tournament}</span>
@@ -67,9 +92,10 @@ const MatchCard = ({ opponent, tournament, date, time, logo, streamUrl = "https:
         href={streamUrl} 
         target="_blank" 
         rel="noopener noreferrer"
-        className="w-full lg:w-auto px-6 py-3 bg-white text-black font-black uppercase text-[10px] sm:text-xs tracking-widest hover:bg-red-600 hover:text-white transition-colors rounded text-center"
+        className="relative z-10 w-full lg:w-auto px-6 py-3 bg-white text-black font-black uppercase text-[10px] sm:text-xs tracking-widest hover:bg-red-600 hover:text-white transition-colors rounded text-center group/btn overflow-hidden"
       >
-        Watch Live
+        <span className="relative z-10">Watch Live</span>
+        <div className="absolute inset-0 bg-red-600 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300" />
       </a>
     </motion.div>
   );
